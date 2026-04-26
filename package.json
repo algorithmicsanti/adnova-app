@@ -16,6 +16,7 @@
     "prisma:push": "prisma db push --schema=backend/prisma/schema.prisma --skip-generate"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
     "@google-analytics/data": "^5.2.0",
     "@modelcontextprotocol/sdk": "^1.27.1",
     "@prisma/client": "^6.19.2",

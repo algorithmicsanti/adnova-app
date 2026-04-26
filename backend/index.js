@@ -496,6 +496,9 @@ app.use('/api/mcpjobs', sessionGuard, require('./routes/mcpjobs'));
 
 app.use('/api/mcp/context', require('./routes/mcpContext'));
 
+// Claude Managed Agents — AI analysis sessions powered by Adray's MCP server
+app.use('/api/managed-agents', sessionGuard, require('./routes/managedAgents'));
+
 // MCP Server (Phase 1) - protocol endpoint + OAuth + REST mirror
 const { mountMcpRoutes } = require('./mcp/transport');
 mountMcpRoutes(app);
