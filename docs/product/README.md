@@ -10,4 +10,6 @@ Business and product context behind this codebase, copied from the team's Claude
 | [competitor-analysis.md](competitor-analysis.md) | Positioning against Triple Whale, Polar, Northbeam and others; market pricing |
 | [archive/](archive/) | Superseded drafts: first stakeholder map (security/compliance findings, gatekeepers) and the 7-role version of the persona doc |
 
+Claude Code loads these through the `adray-core-product` skill (`.claude/skills/adray-core-product/SKILL.md`); update its routing table if you add or rename a doc.
+
 Diagrams embedded in the original docs are not reproduced; open the source doc linked at the top of each file.
