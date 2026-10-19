@@ -15,6 +15,8 @@ Build and run a platform-agnostic attribution pipeline for Shopify, WooCommerce,
 - exposes reliable dashboard metrics,
 - and prepares clean data for Meta and Google integrations.
 
+Business and product context (positioning, personas, ICP, competitors) lives in [docs/product/](docs/product/README.md).
+
 ## Current Architecture
 
 - Main backend: Node.js + Express.
