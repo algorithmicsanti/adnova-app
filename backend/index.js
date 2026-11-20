@@ -395,6 +395,11 @@ app.get("/agendar", (_req, res) => {
   res.send(html);
 });
 
+/* Páginas de ventas (estáticas, sin sesión) */
+app.get(/^\/ventas\/keystone\/?$/, (_req, res) => {
+  res.sendFile(path.join(__dirname, "../public/ventas/keystone/index.html"));
+});
+
 app.get("/api/public-config", (_req, res) => {
   res.json({ bookingUrl: process.env.BOOKING_URL || "" });
 });

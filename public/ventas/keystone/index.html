@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adray Keystone | Implementación de IA para la operación</title>
+  <meta name="description" content="Adray Keystone es la capa operativa que conecta a tu equipo, tus agentes y tus sistemas. Del uso aislado de la IA a una operación automatizada, con aprobación humana y tus datos en tu infraestructura." />
+  <meta name="theme-color" content="#0A0B11" />
+  <link rel="canonical" href="https://adray.ai/ventas/keystone" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Adray Keystone | Implementación de IA para la operación" />
+  <meta property="og:description" content="La capa operativa que conecta a tu equipo, tus agentes y tus sistemas." />
+  <meta property="og:url" content="https://adray.ai/ventas/keystone" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-TQV6B8P3");
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <script>document.documentElement.classList.add("js");</script>
+
+  <style>
+    :root{
+      --paper:#F2F2F0;
+      --paper-hi:#F8F8FB;
+      --ink:#0E0F15;
+      --ink-2:#373946;
+      --mute:#62646F;
+      --rule:rgba(14,15,21,.12);
+      --night:#0A0B11;
+      --night-2:#151621;
+      --night-ink:#F2F2F7;
+      --night-mute:#9A9CAD;
+      --night-rule:rgba(255,255,255,.1);
+      --violet:#5636E8;
+      --violet-2:#9A88F5;
+      --violet-3:#DCD4FF;
+      --ice:#A9BFFF;
+      --sans:"Geist","Helvetica Neue",Arial,sans-serif;
+      --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+      --gutter:24px;
+      --head:64px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--head) + 12px)}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+    h1,h2,h3,p{margin:0}
+    a{color:inherit}
+    img{max-width:100%}
+    .wrap{position:relative;width:100%;max-width:1200px;margin:0 auto;padding:0 var(--gutter)}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+    /* ---------- logo (masked PNG, takes the text color) ---------- */
+    .lg{display:inline-block;flex:none;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+    .logo{--m:url(/ventas/keystone/assets/adray-logo.png);aspect-ratio:600/189}
+    .mark{--m:url(/ventas/keystone/assets/adray-mark.png);aspect-ratio:240/198}
+
+    /* ---------- type ---------- */
+    .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);display:flex;align-items:center;gap:12px;font-weight:500}
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 4px rgba(106,77,255,.15);flex:none}
+    .dark .eyebrow{color:var(--violet-2)}
+    .h-xl{font-size:clamp(40px,5.7vw,80px);line-height:.99;letter-spacing:-.045em;font-weight:600;text-wrap:balance}
+    .h-l{font-size:clamp(34px,5vw,68px);line-height:1.03;letter-spacing:-.04em;font-weight:600;text-wrap:balance}
+    .h-m{font-size:clamp(30px,4vw,52px);line-height:1.07;letter-spacing:-.035em;font-weight:600;text-wrap:balance}
+    .h-s{font-size:clamp(21px,2vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:600}
+    .lead{font-size:clamp(18px,1.7vw,22px);line-height:1.5;color:var(--ink-2);max-width:720px;text-wrap:pretty}
+    .dark .lead{color:#C5C7D6}
+    .body{font-size:17px;line-height:1.55;color:var(--ink-2)}
+    .dark .body{color:#B9BBCB}
+    .label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:500}
+    .dark .label{color:var(--night-mute)}
+    .v{color:var(--violet)}
+    .dark .v{color:var(--violet-2)}
+    .num{font-variant-numeric:tabular-nums;letter-spacing:-.05em;font-weight:600;line-height:1}
+    .src{font-size:13px;line-height:1.5;color:var(--mute);max-width:900px}
+    .dark .src{color:var(--night-mute)}
+    .sec-head{display:flex;flex-direction:column;gap:20px;max-width:900px}
+
+    /* ---------- sections ---------- */
+    section{position:relative;padding:clamp(80px,10vw,136px) 0;overflow:hidden}
+    .dark{background:var(--night);color:var(--night-ink)}
+    .paper-hi{background:var(--paper-hi)}
+    .aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .aurora i{position:absolute;border-radius:50%}
+    .grid-dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(14,15,21,.12) 1px,transparent 1.2px);background-size:32px 32px;-webkit-mask-image:radial-gradient(ellipse 60% 60% at 75% 40%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse 60% 60% at 75% 40%,#000 0%,transparent 75%)}
+    .dark .grid-dots{background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1.2px)}
+
+    /* ---------- glass ---------- */
+    .glass{position:relative;border-radius:24px;background:linear-gradient(150deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.55) 55%,rgba(255,255,255,.7) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 24px 60px -28px rgba(48,32,140,.28),0 2px 8px rgba(14,15,21,.04)}
+    .glass::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.2px;background:linear-gradient(140deg,#fff 0%,rgba(255,255,255,.2) 35%,rgba(160,140,255,.25) 70%,rgba(106,77,255,.5) 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+    .glass>*{position:relative;z-index:1}
+    .glass.g-dark{background:linear-gradient(150deg,rgba(255,255,255,.09) 0%,rgba(255,255,255,.03) 60%,rgba(155,135,255,.08) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 30px 70px -30px rgba(0,0,0,.6)}
+    .glass.g-dark::after{background:linear-gradient(140deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,.05) 40%,rgba(155,135,255,.18) 75%,rgba(155,135,255,.6) 100%)}
+    .glass.g-ink{background:linear-gradient(150deg,#1B1C28 0%,#0F1018 100%);color:var(--night-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -24px rgba(20,12,80,.45)}
+    .glass.g-ink::after{background:linear-gradient(140deg,rgba(255,255,255,.35),rgba(255,255,255,.04) 40%,rgba(155,135,255,.7))}
+    .glass.g-ink .body{color:#BFC1D2}
+    .glass.g-ink .label{color:var(--violet-2)}
+
+    .ico{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+    .chip-ico{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;flex:none;color:var(--violet);background:linear-gradient(150deg,rgba(255,255,255,.95),rgba(220,212,255,.55));box-shadow:inset 0 1px 0 #fff,0 6px 16px -6px rgba(106,77,255,.45),0 0 0 1px rgba(106,77,255,.14)}
+    .dark .chip-ico,.g-ink .chip-ico{color:var(--violet-2);background:linear-gradient(150deg,rgba(255,255,255,.14),rgba(155,135,255,.1));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 0 1px rgba(155,135,255,.25)}
+
+    .orb{border-radius:50%;background:radial-gradient(circle at 32% 24%,#fff 0%,rgba(255,255,255,.7) 9%,rgba(196,184,255,.75) 26%,#7A60FF 52%,#4B2FE6 78%,#2E1AA8 100%);box-shadow:inset -14px -18px 36px rgba(40,18,170,.45),inset 10px 12px 24px rgba(255,255,255,.75),0 30px 70px -10px rgba(106,77,255,.55),0 0 0 1px rgba(255,255,255,.5);display:grid;place-items:center;color:#fff;text-align:center;position:relative}
+    .orb::after{content:"";position:absolute;width:38%;height:20%;left:20%;top:12%;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(-24deg)}
+    .orb>*{position:relative;z-index:1}
+
+    /* status chip with a dot */
+    .st{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);font-weight:500}
+    .st b{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(106,77,255,.16)}
+    .dark .st,.g-ink .st{color:var(--violet-2)}
+
+    /* ---------- buttons ---------- */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:-.01em;text-decoration:none;border:0;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .btn .ico{width:18px;height:18px}
+    .btn-primary{color:#fff;background:linear-gradient(135deg,#6A4DFF,var(--violet));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 30px -10px rgba(86,54,232,.8)}
+    .btn-primary:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 36px -12px rgba(86,54,232,.9)}
+    .btn-ghost{color:var(--night-ink);background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+    .btn-ghost:hover{background:rgba(255,255,255,.12)}
+    .btn-line{color:var(--ink);background:transparent;box-shadow:inset 0 0 0 1px var(--rule)}
+    .btn-line:hover{background:rgba(14,15,21,.04)}
+    .btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--violet-2);outline-offset:3px}
+
+    /* ---------- header ---------- */
+    .site-head{position:fixed;top:0;left:0;right:0;z-index:50;height:var(--head);color:var(--night-ink);background:rgba(10,11,17,.62);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.07)}
+    .site-head .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .lockup{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--night-ink)}
+    .lockup .logo{height:26px}
+    .lockup .dash{width:1px;height:22px;background:rgba(255,255,255,.28)}
+    .lockup .name{font-size:19px;font-weight:600;letter-spacing:-.02em}
+    .site-nav{display:flex;align-items:center;gap:28px}
+    .site-nav a{font-size:14.5px;color:#C5C7D6;text-decoration:none;font-weight:500}
+    .site-nav a:hover{color:#fff}
+    .site-head .btn{min-height:40px;padding:0 18px;font-size:14.5px}
+    .site-head .btn .short{display:none}
+
+    /* ---------- reveal ---------- */
+    .js [data-a]{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--d,0) * 1ms)}
+    .js [data-a].in{opacity:1;transform:none}
+
+    /* ---------- hero ---------- */
+    .hero{padding:calc(var(--head) + clamp(56px,9vw,120px)) 0 clamp(72px,9vw,120px);min-height:92vh;display:flex;align-items:center}
+    .hero .aurora .a1{width:900px;height:700px;right:-260px;top:-220px;background:radial-gradient(circle,rgba(106,77,255,.42),transparent 65%)}
+    .hero .aurora .a2{width:700px;height:600px;left:-300px;bottom:-320px;background:radial-gradient(circle,rgba(169,191,255,.18),transparent 65%)}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center}
+    .hero-copy{display:flex;flex-direction:column;gap:28px}
+    .tagrow{display:flex;flex-wrap:wrap;gap:10px}
+    .tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:#C9CBDA;background:rgba(255,255,255,.04)}
+    .hero .lead strong{color:#fff;font-weight:600}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+
+    .run{padding:24px;display:flex;flex-direction:column;gap:18px}
+    .run-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .run-agent{display:flex;align-items:center;gap:12px}
+    .run-agent .chip-ico{width:40px;height:40px;border-radius:12px}
+    .run-agent b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em}
+    .run-agent small{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--night-mute);text-transform:uppercase}
+    .run-steps{display:flex;flex-direction:column;gap:10px}
+    .kr{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:background .5s ease,box-shadow .5s ease}
+    .kr .kr-i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--night-mute);background:rgba(255,255,255,.05);transition:color .5s ease,background .5s ease}
+    .kr .kr-i .ico{width:18px;height:18px}
+    .kr span{font-size:15.5px;color:#C5C7D6;transition:color .5s ease}
+    .kr em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px;color:var(--night-mute);background:rgba(255,255,255,.05);transition:all .5s ease}
+    .kr.done{background:rgba(155,135,255,.1);box-shadow:inset 0 0 0 1px rgba(155,135,255,.32)}
+    .kr.done .kr-i{color:#fff;background:linear-gradient(135deg,#7A60FF,var(--violet))}
+    .kr.done span{color:#fff}
+    .kr.done em{color:#fff;background:rgba(106,77,255,.55)}
+    .run-log{border-top:1px solid var(--night-rule);padding-top:14px;display:flex;flex-direction:column;gap:8px;font-family:var(--mono);font-size:12.5px;color:#C5C7D6}
+    .run-log div{display:flex;gap:14px;transition:opacity .5s ease}
+    .run-log b{font-weight:500;color:var(--violet-2);font-variant-numeric:tabular-nums}
+    .js .run-log div.wait{opacity:.25}
+    .run-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .run-foot .src{font-size:12px}
+
+    /* ---------- punto de partida ---------- */
+    .split{display:grid;grid-template-columns:1fr 540px;gap:56px;align-items:center}
+    .split-copy{display:flex;flex-direction:column;gap:28px}
+    .diagram{position:relative;width:100%;max-width:540px;aspect-ratio:540/470;margin:0 auto}
+    .diagram>svg{position:absolute;inset:0;width:100%;height:100%;color:var(--ink)}
+    .ln{fill:none;stroke:currentColor;stroke-width:1.4}
+    .ln-v{fill:none;stroke:var(--violet);stroke-width:2;stroke-linecap:round}
+    .dash{stroke-dasharray:4 7}
+    .node{fill:var(--violet)}
+    .diagram .orb{position:absolute;left:50%;top:51%;width:33%;aspect-ratio:1;transform:translate(-50%,-50%)}
+    .diagram .orb span{font-size:clamp(15px,1.7vw,20px);line-height:1.1;font-weight:600;letter-spacing:-.02em;margin-top:30%;text-shadow:0 1px 2px rgba(30,10,120,.7),0 0 16px rgba(40,18,170,.65)}
+    .dnode{position:absolute;display:flex;align-items:center;gap:12px;padding:12px 16px;width:max-content;border-radius:18px}
+    .dnode .chip-ico{width:38px;height:38px;border-radius:12px}
+    .dnode .ico{width:20px;height:20px}
+    .dnode b{font-size:17px;font-weight:600}
+    .dn-1{left:50%;top:2%;transform:translateX(-50%)}
+    .dn-2{left:0;bottom:4%}
+    .dn-3{right:0;bottom:4%}
+
+    /* ---------- oportunidad ---------- */
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+    .stat{padding:30px 28px;display:flex;flex-direction:column;gap:16px;min-height:300px}
+    .stat .num{font-size:clamp(56px,6vw,76px)}
+    .stat .num small{font-size:.55em;letter-spacing:-.02em;margin-left:2px}
+    .stat .body{font-size:16.5px}
+    .stat-vis{margin-top:auto}
+    .bars{display:flex;flex-direction:column;gap:10px}
+    .bar-row{display:grid;grid-template-columns:62px 1fr;align-items:center;gap:12px;font-size:13px;color:var(--mute)}
+    .bar-row i{display:block;height:14px;border-radius:999px;background:rgba(14,15,21,.12)}
+    .bar-row.ai i{background:linear-gradient(90deg,#6A4DFF,var(--violet))}
+    .bar-cap{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:4px}
+    .quality{display:flex;align-items:flex-end;gap:8px;height:56px;margin-bottom:10px}
+    .quality i{flex:1;border-radius:6px 6px 2px 2px;background:rgba(14,15,21,.12)}
+    .quality i.ai{background:linear-gradient(180deg,#7A60FF,var(--violet))}
+    .stats + .src{margin-top:24px}
+
+    /* ---------- méxico ---------- */
+    .mx{display:grid;grid-template-columns:420px 1fr;gap:72px;align-items:center;margin-top:56px}
+    .dots-card{padding:26px 28px 20px}
+    .dots-card svg{display:block;width:100%;max-width:340px;margin:0 auto}
+    .dots-card .label{display:flex;justify-content:space-between;margin-top:14px;font-size:11px}
+    .legend-row{display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:baseline;padding:22px 0;border-top:1px solid var(--rule)}
+    .legend-row:last-child{border-bottom:1px solid var(--rule)}
+    .legend-row .num{font-size:clamp(44px,4.4vw,56px)}
+    .sw{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:10px;vertical-align:1px}
+    .mx + .src{margin-top:32px}
+
+    /* ---------- ventaja ---------- */
+    .advantage .aurora .a1{width:800px;height:600px;left:50%;top:-300px;transform:translateX(-50%);background:radial-gradient(circle,rgba(106,77,255,.28),transparent 65%)}
+    .adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .compound{display:flex;flex-direction:column;gap:12px}
+    .cp-row{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:16px}
+    .cp-row .label{font-size:11px}
+    .cp-track{position:relative;height:40px;border-radius:12px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+    .cp-fill{position:absolute;left:0;top:0;bottom:0;border-radius:12px;display:flex;align-items:center;padding:0 14px;font-size:13px;color:#fff;white-space:nowrap;background:linear-gradient(90deg,rgba(106,77,255,.9),rgba(155,135,255,.75))}
+    .cp-fill.ctx{background:rgba(155,135,255,.18);color:var(--violet-2)}
+    .cp-axis{display:flex;justify-content:space-between;margin-left:112px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.18)}
+
+    /* ---------- keystone ---------- */
+    .ks{background:var(--night)}
+    .ks .aurora .a1{width:1000px;height:800px;right:-300px;top:-200px;background:radial-gradient(circle,rgba(106,77,255,.3),transparent 62%)}
+    .ks-lock{display:flex;align-items:center;gap:18px;color:#fff}
+    .ks-lock .logo{height:34px}
+    .ks-lock .dash{width:1px;height:30px;background:rgba(255,255,255,.3)}
+    .ks-lock .name{font-size:32px;font-weight:600;letter-spacing:-.03em}
+    .ks-intro{display:flex;flex-direction:column;gap:26px;max-width:980px}
+    .ks-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;margin-top:64px;align-items:center}
+    .ks-left{display:flex;flex-direction:column;gap:22px}
+    .ks-left h3{font-size:clamp(24px,2.4vw,32px);line-height:1.15;letter-spacing:-.025em;font-weight:600}
+    .ks-detail{padding:24px 26px;border-radius:20px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(155,135,255,.28);min-height:168px}
+    .ks-t{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+    .ks-t::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--violet-2);box-shadow:0 0 14px rgba(155,135,255,.8)}
+    .ks-d{font-size:17px;line-height:1.55;color:#C5C7D6}
+    .ks-panel{position:relative;border-radius:28px;padding:clamp(18px,3vw,34px);background:linear-gradient(135deg,#8E86E8 0%,#4E4BB8 50%,#9FB4F2 100%);box-shadow:0 40px 90px -30px rgba(86,54,232,.6),inset 0 1px 0 rgba(255,255,255,.4);overflow:hidden}
+    .ks-panel::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-8deg,rgba(255,255,255,.07) 0 2px,transparent 2px 9px);mix-blend-mode:overlay;pointer-events:none}
+    .ks-box{position:relative;border-radius:22px;padding:56px 16px 16px;display:flex;flex-direction:column;gap:12px;background:rgba(10,11,17,.18);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+    .ks-btn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;padding:14px 16px;border-radius:16px;text-align:center;font-size:17px;font-weight:600;letter-spacing:-.01em;color:#fff;background:rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.25);transition:background .25s ease,box-shadow .25s ease,color .25s ease,transform .25s ease}
+    .ks-btn:hover{background:rgba(255,255,255,.24)}
+    .ks-btn[aria-pressed="true"]{background:#fff;color:var(--violet);box-shadow:0 14px 34px -14px rgba(10,11,17,.6)}
+    .ks-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+    .ks-btn.pill{position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);min-height:44px;padding:0 20px;border-radius:999px;background:#151621;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55);font-size:15px;white-space:nowrap}
+    .ks-btn.pill:hover{background:#22232f}
+    .ks-btn.pill[aria-pressed="true"]{background:#fff;color:var(--violet)}
+    .ks-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .ks-hint{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--night-mute)}
+    .ks-list{display:none;list-style:none;padding:0;margin:0;flex-direction:column;gap:14px}
+    .ks-list li b{display:block;font-weight:600;color:#fff}
+    .ks-list li span{color:#C5C7D6;font-size:16px}
+    html:not(.js) .ks-list{display:flex}
+    html:not(.js) .ks-detail{display:none}
+
+    /* ---------- conecta / contexto / ejecuta ---------- */
+    .kf{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:stretch;margin-top:56px}
+    .kf-col{display:flex;flex-direction:column;gap:20px;padding:28px 26px}
+    .kf-step{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);font-weight:500}
+    .dark .kf-step{color:var(--violet-2)}
+    .kf-col h3{font-size:22px;line-height:1.2;letter-spacing:-.02em;font-weight:600;margin-top:10px}
+    .kf-col p{font-size:16px;line-height:1.55;color:var(--ink-2);margin-top:8px}
+    .kf-ill{flex:1;min-height:190px;border-radius:16px;background:rgba(14,15,21,.03);box-shadow:inset 0 0 0 1px var(--rule);padding:18px;display:flex;align-items:center;justify-content:center}
+    .kx{display:grid;place-items:center;color:var(--violet)}
+    .kx svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .kp-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+    .kp{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:600;background:#fff;box-shadow:0 0 0 1px var(--rule),0 6px 14px -10px rgba(14,15,21,.3)}
+    .kp::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet)}
+    .kt-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+    .kt{padding:10px 12px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule);display:flex;flex-direction:column;gap:6px}
+    .kt:last-child{grid-column:1/-1}
+    .kt-h{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--violet);font-weight:600}
+    .kt i{display:block;height:5px;border-radius:3px;background:rgba(14,15,21,.1)}
+    .kr-wrap{display:flex;flex-direction:column;gap:8px;width:100%}
+    .kr-wrap .kr{background:#fff;box-shadow:0 0 0 1px var(--rule);padding:10px 12px;grid-template-columns:30px 1fr auto}
+    .kr-wrap .kr .kr-i{width:30px;height:30px;color:#fff;background:linear-gradient(135deg,#7A60FF,var(--violet))}
+    .kr-wrap .kr span{color:var(--ink);font-size:14.5px}
+    .kr-wrap .kr em{color:var(--violet);background:rgba(86,54,232,.08)}
+
+    /* ---------- as-needed ---------- */
+    .dcs{display:flex;flex-direction:column;gap:20px;margin-top:56px}
+    .dc{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:center;padding:28px 30px;border-radius:24px}
+    .dc.on{background:linear-gradient(150deg,#1B1C28 0%,#0F1018 100%);color:var(--night-ink);box-shadow:0 30px 60px -28px rgba(20,12,80,.5)}
+    .dc.off{background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px var(--rule)}
+    .dc h3{font-size:21px;line-height:1.25;letter-spacing:-.02em;font-weight:600;margin:10px 0 8px}
+    .dc p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+    .dc.on p{color:#BFC1D2}
+    .dc.on .kf-step{color:var(--violet-2)}
+    .dc.off .kf-step{color:var(--mute)}
+    .dl{position:relative;padding-top:34px}
+    .dl-row{display:flex;gap:6px}
+    .dl-seg{min-height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 10px;font-size:14px;font-weight:500;line-height:1.15}
+    .dc.on .dl-seg{background:rgba(255,255,255,.06);color:#C5C7D6;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+    .dc.on .dl-seg.hot{background:linear-gradient(135deg,#7A60FF,var(--violet));color:#fff;box-shadow:none}
+    .dc.on .dl-seg.mid{background:rgba(155,135,255,.22);color:#fff;box-shadow:inset 0 0 0 1px rgba(155,135,255,.45)}
+    .dc.on .dl-seg.next{background:transparent;color:var(--night-mute);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);border:0;justify-content:flex-start;padding-left:16px}
+    .dc.off .dl-seg{background:rgba(14,15,21,.06);color:var(--ink-2)}
+    .dl-val{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+    .dl-val::after{content:"";width:1.5px;height:64px;position:absolute;top:22px;left:50%;background:currentColor;opacity:.45}
+    .dl-val.end{transform:translateX(-100%);align-items:flex-end}
+    .dl-val.end::after{left:auto;right:3px}
+    .dc.on .dl-val{color:var(--violet-2)}
+    .dc.off .dl-val{color:var(--mute)}
+    .dc-axis{display:grid;grid-template-columns:340px 1fr;gap:40px;padding:0 30px}
+    .dc-axis div{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+    .dc-axis i{flex:1;height:1px;background:linear-gradient(90deg,var(--rule),rgba(14,15,21,.4))}
+
+    /* ---------- gobierno ---------- */
+    .gpanel{margin-top:56px;padding:26px 28px 30px}
+    .gp-row{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px}
+    .gp-row::before{content:"";position:absolute;left:4%;right:4%;top:50%;height:1.5px;background:linear-gradient(90deg,rgba(86,54,232,.2),var(--violet));z-index:0}
+    .gp{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:10px 12px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 10px 24px -16px rgba(14,15,21,.35);font-size:15.5px;font-weight:600;text-align:center}
+    .gp .ico{width:20px;height:20px;color:var(--violet)}
+    .gp.hot{background:linear-gradient(135deg,#6A4DFF,var(--violet));color:#fff;box-shadow:0 14px 30px -12px rgba(86,54,232,.75)}
+    .gp.hot .ico{color:#fff}
+    .gp.ex{background:var(--ink);color:#fff}
+    .gp.ex .ico{color:var(--violet-2)}
+    .gm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+    .gm{padding:22px;display:flex;flex-direction:column;gap:12px}
+    .gm-h{display:flex;align-items:center;gap:12px}
+    .gm-h .chip-ico{width:40px;height:40px;border-radius:12px}
+    .gm-h .ico{width:20px;height:20px}
+    .gm-h h3{font-size:19px;font-weight:600;letter-spacing:-.015em}
+    .gm p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+    .gm-ui{margin-top:auto;padding:12px;border-radius:12px;background:rgba(14,15,21,.04);box-shadow:inset 0 0 0 1px var(--rule);display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+    .gm-tg{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .gm-tg i{width:32px;height:18px;border-radius:999px;background:var(--violet);position:relative}
+    .gm-tg i::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+    .gm-tg em{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);background:rgba(86,54,232,.1);padding:4px 8px;border-radius:999px}
+    .gm-log div{display:flex;gap:10px;font-family:var(--mono);font-size:12px}
+    .gm-log b{color:var(--violet);font-weight:500}
+    .gm-spark{width:100%;height:44px;display:block}
+    .gm-tags{flex-direction:row;flex-wrap:wrap}
+    .gm-tags span{padding:5px 10px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px var(--rule);font-size:12.5px;font-weight:500}
+    .gm-tags em{font-style:normal;color:var(--violet);font-family:var(--mono);font-size:11px;margin-left:4px}
+    .gm-grid + .src{margin-top:18px}
+
+    /* ---------- arquitectura ---------- */
+    .arch .aurora .a1{width:800px;height:700px;left:-260px;bottom:-360px;background:radial-gradient(circle,rgba(106,77,255,.28),transparent 65%)}
+    .ar{display:grid;grid-template-columns:1.35fr 1fr;gap:28px;margin-top:56px;align-items:stretch}
+    .ab{position:relative;display:flex;flex-direction:column;padding:54px 26px 26px;border-radius:26px;background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1.5px rgba(155,135,255,.45)}
+    .ar-pill{position:absolute;top:0;left:26px;transform:translateY(-50%);display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:var(--night-2);box-shadow:inset 0 0 0 1px rgba(155,135,255,.5);font-size:14.5px;font-weight:600;white-space:nowrap}
+    .ar-pill .ico{width:18px;height:18px;color:var(--violet-2)}
+    .ar-grid{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .ar-m{display:flex;align-items:center;gap:12px;min-height:74px;padding:16px;border-radius:16px;background:rgba(255,255,255,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 0 1px rgba(255,255,255,.07);font-size:16px;font-weight:500}
+    .ar-m .ico{color:var(--violet-2)}
+    .ab-lock{position:absolute;right:22px;top:-22px;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#7A60FF,var(--violet));box-shadow:0 10px 24px -8px rgba(106,77,255,.8)}
+    .ab-lock .ico{width:20px;height:20px}
+    .ar-out{padding:28px 26px;border-radius:26px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);display:flex;flex-direction:column;gap:18px}
+    .ar-list{display:flex;flex-direction:column;gap:2px}
+    .ar-list div{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--night-rule);font-size:17px}
+    .ar-list .ico{color:var(--violet-2);width:20px;height:20px}
+    .ar-st{margin-top:auto;padding:10px 14px;border-radius:12px;background:rgba(155,135,255,.1);align-self:flex-start;text-transform:none;letter-spacing:.02em;font-size:13px}
+
+    /* ---------- privacidad ---------- */
+    .pv{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:center;margin-top:48px}
+    .pv-vis{position:relative;aspect-ratio:1;max-width:340px;width:100%;display:grid;place-items:center;margin:0 auto}
+    .pv-vis>svg{position:absolute;inset:0;width:100%;height:100%}
+    .pv-vis .orb{width:52%;aspect-ratio:1}
+    .pv-vis .orb .ico{width:64px;height:64px;stroke-width:1.3;color:#fff}
+    .pv-list{display:flex;flex-direction:column;gap:12px}
+    .pr{display:flex;align-items:center;gap:18px;padding:20px 22px}
+    .pr h3{font-size:20px;font-weight:600;letter-spacing:-.015em}
+    .pr p{font-size:16px;color:var(--ink-2);margin-top:2px}
+    .cert{padding:20px 22px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;margin-top:6px}
+    .cert-badges{display:flex;flex-direction:column;gap:8px}
+    .cert-badges span{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;font-weight:600;font-size:14.5px;background:#fff;box-shadow:0 0 0 1px var(--rule);white-space:nowrap}
+    .cert-badges .ico{width:18px;height:18px;color:var(--violet)}
+    .cert-txt{display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--rule);padding-left:24px}
+    .cert-txt p{font-size:15.5px;color:var(--ink)}
+
+    /* ---------- cómo trabajamos ---------- */
+    .models{display:grid;grid-template-columns:1fr 56px 1fr;margin-top:56px;align-items:stretch}
+    .mcard{padding:30px 28px;display:flex;flex-direction:column;gap:16px}
+    .mcard-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .mcard h3{font-size:clamp(24px,2.4vw,30px);line-height:1.15;letter-spacing:-.025em;font-weight:600}
+    .mbox{margin-top:auto;padding:16px 18px;border-radius:16px;background:rgba(14,15,21,.04);box-shadow:inset 0 0 0 1px var(--rule);display:flex;flex-direction:column;gap:10px}
+    .mbox img{height:30px;width:auto;align-self:flex-start}
+    .mbox strong{font-size:18px;font-weight:600}
+    .plus{display:grid;place-items:center}
+    .plus span{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:24px;line-height:1}
+    .models + .src{margin-top:20px}
+
+    /* ---------- levantamiento ---------- */
+    .steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+    .lv{padding:24px 22px;display:flex;flex-direction:column;gap:14px}
+    .lv-ill{height:120px;border-radius:14px;background:rgba(14,15,21,.04);box-shadow:inset 0 0 0 1px var(--rule);display:grid;place-items:center;position:relative;overflow:hidden}
+    .lv h3{font-size:21px;font-weight:600;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+    .lv h3 .ico{color:var(--violet);width:20px;height:20px}
+    .lv p{font-size:15.5px;line-height:1.5;color:var(--ink-2)}
+    .rec{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink)}
+    .rec b{width:9px;height:9px;border-radius:50%;background:#E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.18)}
+    .bubble{max-width:82%;padding:9px 12px;border-radius:14px 14px 14px 4px;background:#fff;box-shadow:0 0 0 1px var(--rule);font-size:12.5px;color:var(--ink-2)}
+    .bubble em{display:block;font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--violet);margin-bottom:3px}
+    .pri{display:flex;flex-direction:column;gap:5px;width:78%}
+    .pri div{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-2)}
+    .pri i{height:7px;border-radius:4px;background:linear-gradient(90deg,#7A60FF,var(--violet))}
+    .avs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:80%}
+    .avs i{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--violet-3),var(--violet-2));box-shadow:0 0 0 2px #fff}
+    .avs i:nth-child(3n){background:linear-gradient(135deg,#D5E0FF,var(--ice))}
+    .steps4 + .src{margin-top:18px}
+
+    /* ---------- metodología ---------- */
+    .method{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:1px solid var(--rule)}
+    .mt{padding:30px 30px 6px 0;display:flex;flex-direction:column;gap:14px}
+    .mt + .mt{padding-left:30px;border-left:1px solid var(--rule)}
+    .mt-top{display:flex;align-items:center;justify-content:space-between}
+    .mt-n{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--violet);font-weight:500}
+    .mt h3{font-size:clamp(24px,2.6vw,34px);font-weight:600;letter-spacing:-.03em}
+    .mt p{font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+
+    /* ---------- sectores ---------- */
+    .sect{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:56px}
+    .sect-col{padding:28px}
+    .sect-col .label{display:block;margin-bottom:18px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{display:inline-flex;align-items:center;gap:9px;padding:10px 14px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px var(--rule);font-size:15.5px;font-weight:500}
+    .chip .ico{width:18px;height:18px;color:var(--violet)}
+
+    /* ---------- estructura comercial ---------- */
+    .phases{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:64px}
+    .phases::before{content:"";position:absolute;left:24px;right:24px;top:24px;height:1.5px;background:linear-gradient(90deg,var(--violet),rgba(86,54,232,.15))}
+    .ph{position:relative;display:flex;flex-direction:column;gap:12px}
+    .ph-n{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-family:var(--mono);font-size:14px;font-weight:600;color:#fff;background:linear-gradient(135deg,#7A60FF,var(--violet));box-shadow:0 10px 24px -10px rgba(86,54,232,.8)}
+    .ph h3{font-size:19px;line-height:1.25;font-weight:600;letter-spacing:-.015em;margin-top:8px}
+    .ph p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+
+    /* ---------- quiénes somos ---------- */
+    .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end}
+    .partners{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+    .partner{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:16px;padding:22px 16px 16px;min-height:150px}
+    .partner .logo-box{flex:1;display:grid;place-items:center;width:100%}
+    .partner img{display:block;max-width:100%;height:auto}
+    .soon{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(86,54,232,.1);color:var(--violet)}
+
+    /* ---------- cta ---------- */
+    .cta .aurora .a1{width:900px;height:700px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(106,77,255,.38),transparent 62%)}
+    .cta-box{display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;max-width:860px;margin:0 auto}
+    .cta-box .lead{margin:0 auto}
+    .cta-box .cta-row{justify-content:center}
+    .person{display:flex;align-items:center;gap:14px;margin-top:10px;padding:10px 18px 10px 10px;border-radius:999px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+    .person .av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px;color:#fff;background:linear-gradient(135deg,#7A60FF,var(--violet))}
+    .person b{display:block;font-size:15px;font-weight:600;text-align:left}
+    .person a{font-family:var(--mono);font-size:12.5px;color:var(--night-mute);text-decoration:none}
+    .person a:hover{color:#fff}
+
+    /* ---------- footer ---------- */
+    .site-foot{background:var(--night);color:var(--night-mute);border-top:1px solid var(--night-rule);padding:32px 0}
+    .site-foot .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .site-foot .logo{height:22px;color:var(--night-ink)}
+    .site-foot nav{display:flex;gap:22px;flex-wrap:wrap;font-size:14px}
+    .site-foot a{text-decoration:none}
+    .site-foot a:hover{color:#fff}
+    .site-foot small{font-size:13px}
+
+    /* ---------- responsive ---------- */
+    @media (max-width:1080px){
+      .site-nav a:not(.btn){display:none}
+      .hero-grid,.split,.adv-grid,.ks-grid,.mx,.pv,.about{grid-template-columns:1fr}
+      .hero-grid{gap:48px}
+      .run{max-width:560px}
+      .split{gap:40px}
+      .diagram{max-width:480px}
+      .stats{grid-template-columns:1fr 1fr}
+      .stats .stat:last-child{grid-column:1/-1;min-height:0}
+      .mx{gap:40px}
+      .dots-card{max-width:420px}
+      .ks-grid{gap:36px}
+      .kf{grid-template-columns:1fr;gap:12px}
+      .kx{transform:rotate(90deg);height:24px}
+      .dc,.dc-axis{grid-template-columns:1fr;gap:20px}
+      .dc-axis span{display:none}
+      .gm-grid{grid-template-columns:1fr 1fr}
+      .ar{grid-template-columns:1fr;gap:36px}
+      .pv{gap:32px}
+      .pv-vis{max-width:240px}
+      .steps4{grid-template-columns:1fr 1fr}
+      .phases{grid-template-columns:1fr;gap:0;margin-top:48px}
+      .phases::before{left:23px;right:auto;top:24px;bottom:24px;width:1.5px;height:auto;background:linear-gradient(180deg,var(--violet),rgba(86,54,232,.15))}
+      .ph{display:grid;grid-template-columns:48px 1fr;column-gap:20px;row-gap:4px;padding-bottom:28px}
+      .ph .ph-n{grid-row:1/3}
+      .ph h3{margin-top:2px}
+      .partners{grid-template-columns:repeat(3,1fr)}
+      .about{gap:24px}
+    }
+    @media (max-width:760px){
+      :root{--gutter:16px;--head:58px}
+      .lockup .logo{height:22px}
+      .lockup .name{font-size:17px}
+      .lockup .dash{height:18px}
+      .site-head .btn{padding:0 14px;font-size:13.5px}
+      .site-head .btn .long{display:none}
+      .site-head .btn .short{display:inline}
+      .hero{min-height:0}
+      .run{padding:18px}
+      .kr{padding:10px 12px;gap:10px;grid-template-columns:30px 1fr auto}
+      .kr .kr-i{width:30px;height:30px}
+      .kr span{font-size:14.5px}
+      .dnode{padding:9px 12px;gap:9px;border-radius:14px}
+      .dnode .chip-ico{width:30px;height:30px;border-radius:10px}
+      .dnode .ico{width:16px;height:16px}
+      .dnode b{font-size:14.5px}
+      .stats{grid-template-columns:1fr}
+      .stat{min-height:0}
+      .legend-row{grid-template-columns:96px 1fr;gap:16px}
+      .cp-row{grid-template-columns:72px 1fr;gap:10px}
+      .cp-axis{margin-left:82px}
+      .cp-fill{font-size:12px;padding:0 10px}
+      .ks-lock .logo{height:26px}
+      .ks-lock .name{font-size:25px}
+      .ks-box{padding:48px 12px 12px;gap:10px}
+      .ks-row{gap:8px}
+      .ks-btn{min-height:56px;font-size:15px;padding:10px}
+      .ks-row .ks-btn{font-size:13.5px;padding:8px 4px}
+      .ks-btn.pill{font-size:13.5px;padding:0 14px;min-height:40px}
+      .dc{padding:22px 18px}
+      .dl-row{gap:4px}
+      .dl-seg{font-size:11.5px;padding:4px;min-height:52px;border-radius:9px}
+      .dc.on .dl-seg.next{padding-left:8px}
+      .dc-axis{padding:0 18px}
+      .gp-row{grid-template-columns:1fr;gap:10px}
+      .gp-row::before{left:50%;right:auto;top:6%;bottom:6%;width:1.5px;height:auto;background:linear-gradient(180deg,rgba(86,54,232,.2),var(--violet))}
+      .gm-grid{grid-template-columns:1fr}
+      .ar-grid{grid-template-columns:1fr}
+      .ar-m{min-height:0}
+      .ar-pill{font-size:13px;left:18px;padding:9px 13px}
+      .ab{padding:46px 18px 18px}
+      .ab-lock{display:none}
+      .cert{grid-template-columns:1fr;gap:16px}
+      .cert-badges{flex-direction:row;flex-wrap:wrap}
+      .cert-txt{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}
+      .models{grid-template-columns:1fr}
+      .plus{padding:12px 0}
+      .steps4{grid-template-columns:1fr}
+      .method{grid-template-columns:1fr}
+      .mt,.mt + .mt{padding:26px 0 24px;border-left:0}
+      .mt + .mt{border-top:1px solid var(--rule)}
+      .sect{grid-template-columns:1fr}
+      .sect-col{padding:22px 18px}
+      .chip{font-size:14.5px;padding:9px 12px}
+      .partners{grid-template-columns:1fr 1fr}
+      .partners .partner:last-child{grid-column:1/-1}
+      .site-foot .wrap{flex-direction:column;align-items:flex-start}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .js [data-a]{opacity:1;transform:none;transition:none}
+      .kr,.kr .kr-i,.kr span,.kr em,.run-log div{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQV6B8P3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 11.5a8 8 0 0 1-11.7 7.1L3.5 20l1.4-4.7A8 8 0 1 1 20.5 11.5z"/><path d="M8.5 11.5h.01M12.5 11.5h.01M16.5 11.5h.01"/></symbol>
+      <symbol id="i-bars" viewBox="0 0 24 24"><path d="M3 20.5h18M6.5 17V11M11.5 17V5M16.5 17v-4"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.8c1.7.8 2.8 2.6 3 5.2"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 20 3M16 7l3 3M13.5 9.5l2 2"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.5-4.5"/></symbol>
+      <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2.5 12h4l3-7.5 5 15 3-7.5h4"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".5"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 15v2"/></symbol>
+      <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></symbol>
+      <symbol id="i-db-off" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/><path d="M3 3l18 18"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8 4.5 5.8v5.7c0 4.9 3.2 8.4 7.5 9.7 4.3-1.3 7.5-4.8 7.5-9.7V5.8L12 2.8z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></symbol>
+      <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.7 1.7 3.3-3.4"/><path d="M8.3 13.8 7 21.5l5-2.8 5 2.8-1.3-7.7"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></symbol>
+      <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9.5 2.5V6M14.5 2.5V6M9.5 18v3.5M14.5 18v3.5M2.5 9.5H6M2.5 14.5H6M18 9.5h3.5M18 14.5h3.5"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7z"/><path d="M19 15.5c.2 1.6.9 2.3 2.5 2.5-1.6.2-2.3.9-2.5 2.5-.2-1.6-.9-2.3-2.5-2.5 1.6-.2 2.3-.9 2.5-2.5z"/></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6"/></symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2.5 4.5 14H11l-1 7.5L18.5 10H12l1-7.5z"/></symbol>
+      <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2.5v5M15 2.5v5M6 7.5h12v4a6 6 0 0 1-12 0v-4zM12 17.5v4"/></symbol>
+      <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5v-15z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20M8 7.5h8M8 11h5"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-loop" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 3.5v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20.5v-5h5"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2.5H6.5A1.5 1.5 0 0 0 5 4v16a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 20V7.5l-5-5z"/><path d="M14 2.5v5h5M8.5 13h7M8.5 16.5h5"/></symbol>
+      <symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1.4 1.4 0 0 0 2-2"/><path d="m14 14 2.5 2.5a1.4 1.4 0 0 0 2-2l-3.9-3.9a2.8 2.8 0 0 0-4 0l-.9.9a1.4 1.4 0 0 1-2-2l2.8-2.8a3.9 3.9 0 0 1 4.8-.5l.5.3a3 3 0 0 0 2.2.4L21 6.5"/><path d="m21 3.5 1 11h-2M3 3.5l-1 11 6.5 6.5a1.4 1.4 0 0 0 2-2M3 4.5h8"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1.5-4.5L16 5l3 3L8.5 18.5z"/><path d="M14 7l3 3"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7.5 8.5 12 4l4.5 4.5M4 20h16"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="site-head">
+    <div class="wrap">
+      <a class="lockup" href="#inicio" aria-label="Adray Keystone, inicio">
+        <span class="lg logo" aria-hidden="true"></span><span class="dash" aria-hidden="true"></span><span class="name">Keystone</span>
+      </a>
+      <nav class="site-nav" aria-label="Secciones">
+        <a href="#plataforma">Plataforma</a>
+        <a href="#gobierno">Gobierno</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#como-trabajamos">Cómo trabajamos</a>
+        <a class="btn btn-primary" href="/agendar"><span class="long">Agenda una conversación</span><span class="short">Agendar</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero dark" id="inicio">
+      <div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div>
+      <div class="grid-dots" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="tagrow" data-a><span class="tag">Implementación de IA</span><span class="tag">Operación empresarial</span></div>
+          <h1 class="h-xl" data-a style="--d:100">Transformación organizacional con inteligencia artificial.</h1>
+          <p class="lead" data-a style="--d:200">Del uso aislado de la IA a una operación automatizada. <strong>Adray Keystone</strong> es la capa operativa que conecta a tu equipo, tus agentes y tus sistemas.</p>
+          <div class="cta-row" data-a style="--d:300">
+            <a class="btn btn-primary" href="/agendar">Agenda una sesión de discovery <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-ghost" href="#plataforma">Conoce Keystone</a>
+          </div>
+        </div>
+
+        <div class="glass g-dark run" data-a style="--d:350" aria-label="Ejemplo ilustrativo de un agente con aprobación humana">
+          <div class="run-top">
+            <div class="run-agent">
+              <span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-spark"/></svg></span>
+              <div><b>Agente Compras</b><small>v1.8 · En producción</small></div>
+            </div>
+            <span class="st"><b></b>Ejecución con aprobación humana</span>
+          </div>
+          <div class="run-steps" id="runSteps">
+            <div class="kr done"><span class="kr-i" aria-hidden="true"><svg class="ico"><use href="#i-pen"/></svg></span><span>Tus agentes trabajan</span><em>Listo</em></div>
+            <div class="kr done"><span class="kr-i" aria-hidden="true"><svg class="ico"><use href="#i-check"/></svg></span><span>Tu equipo lo aprueba</span><em>Aprobado</em></div>
+            <div class="kr done"><span class="kr-i" aria-hidden="true"><svg class="ico"><use href="#i-upload"/></svg></span><span>Queda registrado en tu sistema</span><em>Registrado</em></div>
+          </div>
+          <div class="run-log" id="runLog">
+            <div><b>09:14</b>Consulta · Facturas</div>
+            <div><b>09:15</b>Recomienda pago</div>
+            <div><b>09:21</b>Aprobado · M. López</div>
+          </div>
+          <div class="run-foot"><span class="label">Auditoría</span><span class="src">Datos de ejemplo, ilustrativos.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PUNTO DE PARTIDA ============ -->
+    <section id="punto-de-partida">
+      <div class="aurora" aria-hidden="true">
+        <i style="width:760px;height:560px;right:-160px;top:-180px;background:radial-gradient(circle,rgba(220,212,255,.8),transparent 70%)"></i>
+        <i style="width:640px;height:520px;left:-200px;bottom:-240px;background:radial-gradient(circle,rgba(213,224,255,.8),transparent 70%)"></i>
+      </div>
+      <div class="grid-dots" aria-hidden="true"></div>
+      <div class="wrap split">
+        <div class="split-copy">
+          <div class="eyebrow" data-a>El punto de partida</div>
+          <h2 class="h-l" data-a style="--d:100">La tecnología ya está aquí. La brecha está en la <span class="v">implementación.</span></h2>
+          <p class="lead" data-a style="--d:200">Los modelos ya son capaces de administrar una empresa. Lo que falta es conectarlos a los procesos, los datos y las personas de cada organización.</p>
+        </div>
+        <div class="diagram" data-a style="--d:200" role="img" aria-label="Los modelos de IA conectados a procesos, datos y personas">
+          <svg viewBox="0 0 540 470" aria-hidden="true">
+            <circle cx="270" cy="240" r="180" class="ln dash" opacity=".22"/>
+            <circle cx="270" cy="240" r="120" class="ln" opacity=".1"/>
+            <path d="M270 240 L270 64" class="ln-v"/>
+            <path d="M270 240 L96 372" class="ln-v"/>
+            <path d="M270 240 L444 372" class="ln-v"/>
+            <circle cx="270" cy="152" r="5" class="node"/>
+            <circle cx="183" cy="306" r="5" class="node"/>
+            <circle cx="357" cy="306" r="5" class="node"/>
+          </svg>
+          <div class="orb" aria-hidden="true"><span>Modelos<br>de IA</span></div>
+          <div class="glass dnode dn-1"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-layers"/></svg></span><b>Procesos</b></div>
+          <div class="glass dnode dn-2"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-db"/></svg></span><b>Datos</b></div>
+          <div class="glass dnode dn-3"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-users"/></svg></span><b>Personas</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OPORTUNIDAD ============ -->
+    <section id="oportunidad" class="paper-hi">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>La oportunidad</div>
+          <h2 class="h-m" data-a style="--d:100">Transformar procesos y difundir la IA en el equipo operativo.</h2>
+        </div>
+        <div class="stats">
+          <div class="glass stat" data-a style="--d:150">
+            <div class="num"><span data-count="50">50</span><small>%</small></div>
+            <p class="body">menos tiempo en tareas específicas de áreas concretas, de acuerdo con McKinsey.</p>
+            <div class="stat-vis" aria-hidden="true">
+              <div class="bars">
+                <div class="bar-row"><span>Hoy</span><i style="width:100%"></i></div>
+                <div class="bar-row ai"><span>Con IA</span><i style="width:50%"></i></div>
+              </div>
+              <div class="bar-cap">Tiempo dedicado a la tarea</div>
+            </div>
+          </div>
+          <div class="glass stat" data-a style="--d:250">
+            <div class="num"><span data-count="25">25</span><small>%</small></div>
+            <p class="body">más rápido en trabajo de conocimiento real (BCG y Harvard).</p>
+            <div class="stat-vis" aria-hidden="true">
+              <div class="bars">
+                <div class="bar-row"><span>Hoy</span><i style="width:80%"></i></div>
+                <div class="bar-row ai"><span>Con IA</span><i style="width:100%"></i></div>
+              </div>
+              <div class="bar-cap">Avance en el mismo tiempo</div>
+            </div>
+          </div>
+          <div class="glass stat" data-a style="--d:350">
+            <div class="num"><small style="margin:0 2px 0 0">+</small><span data-count="40">40</span><small>%</small></div>
+            <p class="body">de calidad en tareas dentro de las capacidades de la IA.</p>
+            <div class="stat-vis" aria-hidden="true">
+              <div class="quality"><i style="height:52%"></i><i class="ai" style="height:73%"></i><i style="height:58%"></i><i class="ai" style="height:81%"></i><i style="height:55%"></i><i class="ai" style="height:77%"></i></div>
+              <div class="bar-cap">Calidad del resultado · sin IA / con IA</div>
+            </div>
+          </div>
+        </div>
+        <p class="src" data-a>Fuentes: McKinsey, “Unleashing developer productivity with generative AI” (2023); BCG y Harvard Business School, experimento con ~800 consultores (2023).</p>
+      </div>
+    </section>
+
+    <!-- ============ MÉXICO HOY ============ -->
+    <section id="mexico">
+      <div class="aurora" aria-hidden="true">
+        <i style="width:640px;height:520px;left:-200px;bottom:-240px;background:radial-gradient(circle,rgba(213,224,255,.8),transparent 70%)"></i>
+        <i style="width:420px;height:420px;right:240px;bottom:-120px;background:radial-gradient(circle,rgba(106,77,255,.22),transparent 70%)"></i>
+      </div>
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>México hoy</div>
+          <h2 class="h-m" data-a style="--d:100">Casi la mitad de las empresas usa IA, pero muy pocas la han integrado en sus operaciones.</h2>
+        </div>
+        <div class="mx">
+          <div class="glass dots-card" data-a style="--d:150">
+            <svg id="dots" viewBox="0 0 460 460" role="img" aria-label="100 puntos: 6 avanzados, 12 intermedios, 30 básicos, 52 sin IA"></svg>
+            <div class="label"><span>1 punto = 1% de las empresas</span><span>n = 100</span></div>
+          </div>
+          <div>
+            <div class="legend-row" data-a style="--d:200"><div class="num"><span data-count="48">48</span>%</div><p class="body"><span class="sw" style="background:var(--ink)"></span>de las organizaciones en México ya usa alguna herramienta de IA.</p></div>
+            <div class="legend-row" data-a style="--d:300"><div class="num" style="color:#8E90A0"><span data-count="63">63</span>%</div><p class="body"><span class="sw" style="background:#B9BBC8"></span>de quienes la usan se queda en lo básico: chatbots y automatizaciones simples.</p></div>
+            <div class="legend-row" data-a style="--d:400"><div class="num v">~<span data-count="6">6</span>%</div><p class="body" style="color:var(--ink)"><span class="sw" style="background:var(--violet)"></span><b style="font-weight:600">del total de empresas opera con sistemas avanzados o arquitecturas agénticas.</b></p></div>
+          </div>
+        </div>
+        <p class="src" data-a>Fuente: Strand Partners para AWS, “Desbloqueando el potencial de la IA en México 2026”. ~6% = 13% de adoptantes en nivel avanzado × 48% de adopción.</p>
+      </div>
+    </section>
+
+    <!-- ============ LA VENTAJA SE ACUMULA ============ -->
+    <section class="dark advantage" id="ventaja">
+      <div class="aurora" aria-hidden="true"><i class="a1"></i></div>
+      <div class="grid-dots" aria-hidden="true"></div>
+      <div class="wrap adv-grid">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>La ventaja se acumula</div>
+          <h2 class="h-l" data-a style="--d:100">Las empresas que implementen antes y mejor van a ganar.</h2>
+          <p class="lead" data-a style="--d:200">Cada proceso automatizado aprende de la organización y hace más rápida y eficiente la implementación del siguiente.</p>
+        </div>
+        <div class="compound" data-a style="--d:250" role="img" aria-label="Cada proceso nuevo se implementa más rápido porque reutiliza el contexto acumulado. Escala ilustrativa.">
+          <div class="cp-row"><span class="label">Proceso 1</span><div class="cp-track"><div class="cp-fill" style="width:100%">Implementación</div></div></div>
+          <div class="cp-row"><span class="label">Proceso 2</span><div class="cp-track"><div class="cp-fill ctx" style="width:34%">Contexto</div><div class="cp-fill" style="left:34%;width:44%">Nuevo</div></div></div>
+          <div class="cp-row"><span class="label">Proceso 3</span><div class="cp-track"><div class="cp-fill ctx" style="width:52%">Contexto</div><div class="cp-fill" style="left:52%;width:24%"></div></div></div>
+          <div class="cp-row"><span class="label">Proceso 4</span><div class="cp-track"><div class="cp-fill ctx" style="width:64%">Contexto</div><div class="cp-fill" style="left:64%;width:14%"></div></div></div>
+          <div class="cp-axis"><span class="label">Tiempo</span><span class="label">Escala ilustrativa</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KEYSTONE ============ -->
+    <section class="dark ks" id="plataforma">
+      <div class="aurora" aria-hidden="true"><i class="a1"></i></div>
+      <div class="wrap">
+        <div class="ks-intro">
+          <div class="ks-lock" data-a><span class="lg logo" aria-hidden="true"></span><span class="sr">Adray</span><span class="dash" aria-hidden="true"></span><span class="name">Keystone</span></div>
+          <h2 class="h-l" data-a style="--d:100">La capa operativa que conecta a tu equipo, tus agentes y tus sistemas.</h2>
+        </div>
+        <div class="ks-grid">
+          <div class="ks-left" data-a style="--d:200">
+            <span class="label" style="color:var(--violet-2)">Plataforma Adray Keystone</span>
+            <h3>Toda la estructura que necesita la IA de tu empresa, en una sola plataforma.</h3>
+            <div class="ks-detail" aria-live="polite">
+              <div class="ks-t" id="ksT">Observabilidad</div>
+              <p class="ks-d" id="ksD">Evalúa y monitorea cada agente en desarrollo y en producción. Rendimiento, costos, métricas y alertas en tableros, con trazabilidad completa.</p>
+            </div>
+            <ul class="ks-list">
+              <li><b>Seguridad y gobierno</b><span>Permisos, políticas y auditoría que envuelven todas las capas. Definen quién y qué puede leer, decidir o ejecutar, con registro de cada acción.</span></li>
+              <li><b>Observabilidad</b><span>Evalúa y monitorea cada agente en desarrollo y en producción. Rendimiento, costos, métricas y alertas en tableros, con trazabilidad completa.</span></li>
+              <li><b>Flujos de trabajo</b><span>Ejecuta procesos de negocio de principio a fin. Coordina agentes, sistemas y personas sin perder el contexto, el estado ni los permisos de cada tarea.</span></li>
+              <li><b>Hub de contexto</b><span>Una capa de conocimiento que indexa los documentos y datos de tu empresa para que agentes y aplicaciones los consulten directamente.</span></li>
+              <li><b>Modelos</b><span>Modelos de frontera, abiertos u on-prem detrás de una sola interfaz. Cada tarea se dirige al modelo que mejor cumple sus requisitos.</span></li>
+              <li><b>Hub de integraciones</b><span>Un solo lugar para administrar todas las conexiones de la organización, desde proveedores soportados hasta cualquier servidor MCP, con gobierno central y no producto por producto.</span></li>
+            </ul>
+          </div>
+          <div data-a style="--d:300">
+            <div class="ks-panel">
+              <div class="ks-box" role="group" aria-label="Capas de la plataforma Keystone">
+                <button class="ks-btn pill" type="button" data-k="sec" aria-pressed="false" aria-controls="ksT ksD">Seguridad y gobierno</button>
+                <button class="ks-btn" type="button" data-k="obs" aria-pressed="true" aria-controls="ksT ksD">Observabilidad</button>
+                <button class="ks-btn" type="button" data-k="flow" aria-pressed="false" aria-controls="ksT ksD">Flujos de trabajo</button>
+                <div class="ks-row">
+                  <button class="ks-btn" type="button" data-k="ctx" aria-pressed="false" aria-controls="ksT ksD">Contexto</button>
+                  <button class="ks-btn" type="button" data-k="mod" aria-pressed="false" aria-controls="ksT ksD">Modelos</button>
+                  <button class="ks-btn" type="button" data-k="int" aria-pressed="false" aria-controls="ksT ksD">Integraciones</button>
+                </div>
+              </div>
+            </div>
+            <div class="ks-hint"><svg viewBox="0 0 24 24" class="ico" style="width:16px;height:16px" aria-hidden="true"><path d="M9 4v10l2.5-2.5L14 17l2-1-2.5-5H17z"/></svg>Selecciona un tema para ver su detalle</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONECTA / CONTEXTO / EJECUTA ============ -->
+    <section id="infraestructura">
+      <div class="aurora" aria-hidden="true"><i style="width:760px;height:560px;right:-200px;top:-200px;background:radial-gradient(circle,rgba(220,212,255,.75),transparent 70%)"></i></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Adray Keystone</div>
+          <h2 class="h-m" data-a style="--d:100">Infraestructura completa para operar IA empresarial.</h2>
+        </div>
+        <div class="kf">
+          <div class="glass kf-col" data-a style="--d:150">
+            <div><span class="kf-step">01 · Conecta</span><h3>Integramos tu data empresarial</h3><p>Conectamos tu ERP, ecommerce, CRM, CFDIs, hojas de cálculo y APIs internas.</p></div>
+            <div class="kf-ill"><div class="kp-wrap"><span class="kp">SAP</span><span class="kp">CONTPAQi</span><span class="kp">ASPEL</span><span class="kp">HubSpot</span><span class="kp">Salesforce</span><span class="kp">VTEX</span><span class="kp">Oracle</span></div></div>
+            <span class="st"><b></b>Adray · conectado</span>
+          </div>
+          <span class="kx" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+          <div class="glass kf-col" data-a style="--d:250">
+            <div><span class="kf-step">02 · Contexto</span><h3>Contexto para cada proceso</h3><p>Traducimos tus sistemas a conceptos de negocio que la IA entiende. Solo lo que cada flujo necesita, validado por tu equipo.</p></div>
+            <div class="kf-ill" aria-hidden="true"><div class="kt-wrap">
+              <div class="kt"><div class="kt-h">VENDEDORES</div><i style="width:86%"></i><i style="width:62%"></i></div>
+              <div class="kt"><div class="kt-h">CLIENTES</div><i style="width:86%"></i><i style="width:62%"></i></div>
+              <div class="kt"><div class="kt-h">CRM</div><i style="width:86%"></i><i style="width:62%"></i></div>
+              <div class="kt"><div class="kt-h">CONTRATOS</div><i style="width:86%"></i><i style="width:62%"></i></div>
+              <div class="kt"><div class="kt-h">FACTURAS</div><i style="width:70%"></i><i style="width:46%"></i></div>
+            </div></div>
+            <span class="st"><b></b>Contexto de tu organización</span>
+          </div>
+          <span class="kx" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+          <div class="glass kf-col" data-a style="--d:350">
+            <div><span class="kf-step">03 · Ejecuta</span><h3>Agentes dentro de tu operación</h3><p>El agente prepara el trabajo, tu equipo aprueba y el sistema queda actualizado con registro completo.</p></div>
+            <div class="kf-ill"><div class="kr-wrap">
+              <div class="kr"><span class="kr-i" aria-hidden="true"><svg class="ico"><use href="#i-pen"/></svg></span><span>Tus agentes trabajan</span><em>Listo</em></div>
+              <div class="kr"><span class="kr-i" aria-hidden="true"><svg class="ico"><use href="#i-check"/></svg></span><span>Tu equipo lo aprueba</span><em>Aprobado</em></div>
+              <div class="kr"><span class="kr-i" aria-hidden="true"><svg class="ico"><use href="#i-upload"/></svg></span><span>Queda registrado</span><em>Registrado</em></div>
+            </div></div>
+            <span class="st"><b></b>Ejecución con aprobación humana</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ACCESO A LA DATA AS-NEEDED ============ -->
+    <section id="data" class="paper-hi">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Acceso a la data as-needed</div>
+          <h2 class="h-m" data-a style="--d:100">Menos tiempo para tener un agente funcionando.</h2>
+        </div>
+        <div class="dcs">
+          <div class="dc on" data-a style="--d:150">
+            <div><span class="kf-step">Adray</span><h3>Primero el proceso, luego solo la data que necesita</h3><p>Descubrimos la información en tus sistemas, la consultamos donde vive y preguntamos a tu equipo solo lo que no podemos inferir.</p></div>
+            <div class="dl">
+              <div class="dl-row"><div class="dl-seg hot" style="flex:0 0 17%">Proceso</div><div class="dl-seg mid" style="flex:0 0 23%">Data necesaria</div><div class="dl-seg hot" style="flex:0 0 16%">Agente</div><div class="dl-seg next" style="flex:1">Siguiente proceso →</div></div>
+              <div class="dl-val" style="left:57%"><span class="st"><b></b>Valor</span></div>
+            </div>
+          </div>
+          <div class="dc off" data-a style="--d:250">
+            <div><span class="kf-step">Implementación tradicional</span><h3>Primero ordenar toda la data</h3><p>Mapear la empresa, limpiar, normalizar y modelar todo antes de construir. Meses antes de ver valor.</p></div>
+            <div class="dl">
+              <div class="dl-row"><div class="dl-seg" style="flex:0 0 18%">Mapear</div><div class="dl-seg" style="flex:0 0 18%">Limpiar</div><div class="dl-seg" style="flex:0 0 21%">Normalizar</div><div class="dl-seg" style="flex:0 0 18%">Modelar</div><div class="dl-seg" style="flex:1">Construir</div></div>
+              <div class="dl-val end" style="left:100%"><span class="st"><b></b>Valor</span></div>
+            </div>
+          </div>
+          <div class="dc-axis" aria-hidden="true"><span></span><div><i></i>Tiempo · escala ilustrativa</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GOBIERNO ============ -->
+    <section id="gobierno">
+      <div class="aurora" aria-hidden="true"><i style="width:700px;height:560px;left:-220px;top:-200px;background:radial-gradient(circle,rgba(220,212,255,.7),transparent 70%)"></i></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Gobierno de agentes</div>
+          <h2 class="h-m" data-a style="--d:100">Control y gobierno de la IA empresarial.</h2>
+        </div>
+        <div class="glass gpanel" data-a style="--d:150">
+          <span class="kf-step">Cada acción de un agente</span>
+          <div class="gp-row">
+            <div class="gp"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>Leer</div>
+            <div class="gp"><svg class="ico" aria-hidden="true"><use href="#i-spark"/></svg>Razonar</div>
+            <div class="gp"><svg class="ico" aria-hidden="true"><use href="#i-bulb"/></svg>Recomendar</div>
+            <div class="gp hot"><svg class="ico" aria-hidden="true"><use href="#i-user"/></svg>Aprobación humana</div>
+            <div class="gp ex"><svg class="ico" aria-hidden="true"><use href="#i-zap"/></svg>Ejecutar</div>
+          </div>
+        </div>
+        <div class="gm-grid">
+          <div class="glass gm" data-a style="--d:200"><div class="gm-h"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-key"/></svg></span><h3>Permisos</h3></div><p>Por acción: leer sí, ejecutar solo con aprobación.</p>
+            <div class="gm-ui" aria-hidden="true"><div class="gm-tg"><span>Leer datos</span><i></i></div><div class="gm-tg"><span>Ejecutar</span><em>Con aprobación</em></div></div></div>
+          <div class="glass gm" data-a style="--d:280"><div class="gm-h"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-search"/></svg></span><h3>Auditoría</h3></div><p>Registro de cada consulta, decisión y acción.</p>
+            <div class="gm-ui gm-log" aria-hidden="true"><div><b>09:14</b>Consulta · Facturas</div><div><b>09:15</b>Recomienda pago</div><div><b>09:21</b>Aprobado · M. López</div></div></div>
+          <div class="glass gm" data-a style="--d:360"><div class="gm-h"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-pulse"/></svg></span><h3>Monitoreo</h3></div><p>Calidad, costo y uso de cada agente.</p>
+            <div class="gm-ui" aria-hidden="true"><svg viewBox="0 0 200 44" class="gm-spark" preserveAspectRatio="none"><defs><linearGradient id="spf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6A4DFF" stop-opacity=".28"/><stop offset="1" stop-color="#6A4DFF" stop-opacity="0"/></linearGradient></defs><path d="M0 34 L22 30 L44 32 L66 22 L88 26 L110 16 L132 20 L154 10 L176 13 L200 6 L200 44 L0 44Z" fill="url(#spf)"/><path d="M0 34 L22 30 L44 32 L66 22 L88 26 L110 16 L132 20 L154 10 L176 13 L200 6" fill="none" stroke="#5636E8" stroke-width="2" vector-effect="non-scaling-stroke"/></svg></div></div>
+          <div class="glass gm" data-a style="--d:440"><div class="gm-h"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-layers"/></svg></span><h3>Registro</h3></div><p>Inventario central de agentes, herramientas y versiones.</p>
+            <div class="gm-ui gm-tags" aria-hidden="true"><span>Agente Cobranza <em>v2.3</em></span><span>Agente Compras <em>v1.8</em></span></div></div>
+        </div>
+        <p class="src" data-a>Datos de ejemplo, ilustrativos.</p>
+      </div>
+    </section>
+
+    <!-- ============ ARQUITECTURA ============ -->
+    <section class="dark arch" id="arquitectura">
+      <div class="aurora" aria-hidden="true"><i class="a1"></i></div>
+      <div class="grid-dots" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Arquitectura</div>
+          <h2 class="h-m" data-a style="--d:100">Build your own intelligence. <span style="color:var(--night-mute)">Tus datos se quedan contigo.</span></h2>
+        </div>
+        <div class="ar">
+          <div class="ab" data-a style="--d:150">
+            <span class="ar-pill"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Tu infraestructura · on-prem o tu nube</span>
+            <div class="ab-lock" aria-hidden="true"><svg class="ico"><use href="#i-lock"/></svg></div>
+            <div class="ar-grid">
+              <div class="ar-m"><svg class="ico" aria-hidden="true"><use href="#i-plug"/></svg>Conectores a tus sistemas</div>
+              <div class="ar-m"><svg class="ico" aria-hidden="true"><use href="#i-box"/></svg>Tu data, en su lugar</div>
+              <div class="ar-m"><svg class="ico" aria-hidden="true"><use href="#i-cpu"/></svg>Ejecución de modelos</div>
+              <div class="ar-m"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>Conocimiento de tu empresa</div>
+            </div>
+          </div>
+          <div class="ar-out" data-a style="--d:250">
+            <span class="kf-step">Adray administra</span>
+            <div class="ar-list">
+              <div><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg>Licenciamiento</div>
+              <div><svg class="ico" aria-hidden="true"><use href="#i-loop"/></svg>Actualizaciones</div>
+              <div><svg class="ico" aria-hidden="true"><use href="#i-pulse"/></svg>Monitoreo operativo</div>
+            </div>
+            <span class="st ar-st"><b></b>Sin acceso a la información de tu negocio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRIVACIDAD Y SEGURIDAD ============ -->
+    <section id="seguridad">
+      <div class="aurora" aria-hidden="true"><i style="width:640px;height:520px;right:-200px;bottom:-240px;background:radial-gradient(circle,rgba(213,224,255,.85),transparent 70%)"></i></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Privacidad y seguridad</div>
+          <h2 class="h-m" data-a style="--d:100">Tu información y tu conocimiento son tuyos.</h2>
+        </div>
+        <div class="pv">
+          <div class="pv-vis" data-a style="--d:150" aria-hidden="true">
+            <svg viewBox="0 0 380 380">
+              <circle cx="190" cy="190" r="175" fill="none" stroke="#5636E8" stroke-opacity=".3" stroke-dasharray="3 7"/>
+              <circle cx="190" cy="190" r="132" fill="none" stroke="#0E0F15" stroke-opacity=".1"/>
+              <circle cx="190" cy="15" r="5" class="node"/><circle cx="365" cy="190" r="5" class="node"/><circle cx="190" cy="365" r="5" class="node"/><circle cx="15" cy="190" r="5" class="node"/>
+            </svg>
+            <div class="orb"><svg class="ico"><use href="#i-shield"/></svg></div>
+          </div>
+          <div class="pv-list">
+            <div class="glass pr" data-a style="--d:200"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-lock"/></svg></span><div><h3>Confidencialidad</h3><p>NDA y acuerdo de tratamiento de datos desde el discovery.</p></div></div>
+            <div class="glass pr" data-a style="--d:280"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-db-off"/></svg></span><div><h3>Sin entrenamiento</h3><p>Tu data no se usa para entrenar modelos de terceros.</p></div></div>
+            <div class="glass pr" data-a style="--d:360"><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-shield"/></svg></span><div><h3>Aislamiento</h3><p>Tu información nunca se comparte con otros clientes.</p></div></div>
+            <div class="glass cert" data-a style="--d:440">
+              <div class="cert-badges"><span><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>AICPA SOC</span><span><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>ISO 27001</span></div>
+              <div class="cert-txt"><span class="label v">Certificaciones en proceso</span><p>Adray, Inc. está en proceso de obtener estas certificaciones, y nuestras políticas de ciberseguridad y manejo de datos se apegan a sus requerimientos.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CÓMO TRABAJAMOS ============ -->
+    <section id="como-trabajamos" class="paper-hi">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Nuestro enfoque</div>
+          <h2 class="h-m" data-a style="--d:100">Dos modelos de implementación.</h2>
+          <p class="lead" data-a style="--d:200">Agentes empresariales y adopción generalizada de la IA para tu equipo operativo. Se pueden trabajar ambos o empezar con uno solo.</p>
+        </div>
+        <div class="models">
+          <div class="glass mcard" data-a style="--d:250">
+            <div class="mcard-top"><span class="label v">Top-down · Liderazgo</span><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-map"/></svg></span></div>
+            <h3>Agentes para procesos de alto valor</h3>
+            <p class="body">Sesiones con liderazgo, stakeholders clave y TI para mapear el flujo de trabajo y las fuentes de datos requeridas.</p>
+            <div class="mbox"><span class="label">Modelo recomendado</span><img src="/ventas/keystone/assets/nvidia-nemotron.png" alt="NVIDIA Nemotron" width="198" height="30"></div>
+          </div>
+          <div class="plus" aria-hidden="true"><span>+</span></div>
+          <div class="glass mcard" data-a style="--d:350">
+            <div class="mcard-top"><span class="label v">Bottom-up · Equipo</span><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-users"/></svg></span></div>
+            <h3>Difusión de IA en todo tu equipo</h3>
+            <p class="body">Workshop y levantamiento de procesos con tus colaboradores a escala. Cada colaborador puede proponer automatizaciones y se desarrollan plugins<span class="v" style="font-weight:600">*</span> por área funcional.</p>
+            <div class="mbox"><span class="label">Trabajamos con el modelo que más se te acomode</span><strong>Claude, ChatGPT, Copilot y Gemini</strong></div>
+          </div>
+        </div>
+        <p class="src" data-a><span class="v">*</span> Plugin: un paquete de instrucciones, conexiones a tus sistemas y flujos automatizados, configurado para un área (por ejemplo, Finanzas o Ventas). El equipo lo usa directamente dentro de su herramienta de IA, sin programar.</p>
+      </div>
+    </section>
+
+    <!-- ============ LEVANTAMIENTO ============ -->
+    <section id="levantamiento">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Levantamiento</div>
+          <h2 class="h-m" data-a style="--d:100">Módulo de levantamiento de procesos a escala.</h2>
+          <p class="lead" data-a style="--d:200">Cada colaborador muestra el proceso que quiere automatizar.</p>
+        </div>
+        <div class="steps4">
+          <div class="glass lv" data-a style="--d:200">
+            <div class="lv-ill" aria-hidden="true"><span class="rec"><b></b>REC 03:42</span></div>
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>Graba</h3>
+            <p>3 a 5 minutos de pantalla narrando una tarea real.</p>
+          </div>
+          <div class="glass lv" data-a style="--d:280">
+            <div class="lv-ill" aria-hidden="true"><div class="bubble"><em>IA · PREGUNTA LO QUE FALTA</em>¿Qué haces si la factura no coincide con la orden?</div></div>
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Conversa</h3>
+            <p>Una IA revisa el video y pregunta solo lo que falta.</p>
+          </div>
+          <div class="glass lv" data-a style="--d:360">
+            <div class="lv-ill" aria-hidden="true"><div class="pri"><div><i style="width:86%"></i>FACTURAS</div><div><i style="width:64%"></i>REPORTES</div><div><i style="width:46%"></i>INVENTARIO</div><div><i style="width:30%"></i>CORREOS</div></div></div>
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-bars"/></svg>Prioriza</h3>
+            <p>Agrupamos por rol y patrón, y calificamos por valor.</p>
+          </div>
+          <div class="glass lv" data-a style="--d:440">
+            <div class="lv-ill" aria-hidden="true"><div class="avs"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <h3><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>Escala</h3>
+            <p>Asíncrono y en paralelo: crece con el equipo, no con la agenda.</p>
+          </div>
+        </div>
+        <p class="src" data-a>Los ejemplos de procesos son ilustrativos.</p>
+      </div>
+    </section>
+
+    <!-- ============ METODOLOGÍA ============ -->
+    <section id="metodologia" class="paper-hi">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Metodología</div>
+          <h2 class="h-m" data-a style="--d:100">Discovery, mapeo e implementación.</h2>
+        </div>
+        <div class="method">
+          <div class="mt" data-a style="--d:150"><div class="mt-top"><span class="mt-n">01</span><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-search"/></svg></span></div><h3>Discovery</h3><p>Medimos el uso actual de IA y levantamos procesos con el liderazgo, con el equipo o con ambos, según el modelo elegido.</p></div>
+          <div class="mt" data-a style="--d:250"><div class="mt-top"><span class="mt-n">02</span><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-map"/></svg></span></div><h3>Mapeo</h3><p>Agrupamos y priorizamos casos por valor, definimos qué datos y sistemas necesita cada uno y en qué orden construir.</p></div>
+          <div class="mt" data-a style="--d:350"><div class="mt-top"><span class="mt-n">03</span><span class="chip-ico" aria-hidden="true"><svg class="ico"><use href="#i-cpu"/></svg></span></div><h3>Implementación</h3><p>Construimos plugins por área funcional y agentes por proceso, en secuencia, midiendo el impacto contra la línea base.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTORES ============ -->
+    <section id="sectores">
+      <div class="aurora" aria-hidden="true"><i style="width:700px;height:560px;right:-220px;top:-160px;background:radial-gradient(circle,rgba(220,212,255,.7),transparent 70%)"></i></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Sectores</div>
+          <h2 class="h-m" data-a style="--d:100">Industrias y áreas funcionales que podemos impactar.</h2>
+        </div>
+        <div class="sect">
+          <div class="glass sect-col" data-a style="--d:150">
+            <span class="label">Industrias</span>
+            <div class="chips">
+              <span class="chip">Puertos y logística</span><span class="chip">Gobierno</span><span class="chip">Manufactura</span><span class="chip">Retail y consumo</span><span class="chip">Energía</span><span class="chip">Banca y finanzas</span><span class="chip">Salud</span><span class="chip">Consultoría y servicios profesionales</span>
+            </div>
+          </div>
+          <div class="glass sect-col" data-a style="--d:250">
+            <span class="label">Áreas funcionales</span>
+            <div class="chips">
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg>Operaciones</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-box"/></svg>Cadena de suministro</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-bars"/></svg>Finanzas y contabilidad</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-handshake"/></svg>Ventas y comercial</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-spark"/></svg>Marketing</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Atención a clientes</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>Recursos humanos</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Legal y cumplimiento</span>
+              <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg>Compras y contrataciones</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ESTRUCTURA COMERCIAL ============ -->
+    <section id="proceso" class="paper-hi">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow" data-a>Estructura comercial</div>
+          <h2 class="h-m" data-a style="--d:100">Cinco fases, cada una con una decisión clara.</h2>
+        </div>
+        <ol class="phases" style="list-style:none;padding:0">
+          <li class="ph" data-a style="--d:150"><span class="ph-n">01</span><h3>Discovery y levantamiento</h3><p>Línea base y levantamiento de procesos.</p></li>
+          <li class="ph" data-a style="--d:230"><span class="ph-n">02</span><h3>Entrega de propuesta</h3><p>Portafolio priorizado, alcance, costo y retorno.</p></li>
+          <li class="ph" data-a style="--d:310"><span class="ph-n">03</span><h3>Plan de implementación</h3><p>Stakeholders, accesos y desarrollo de agentes y plugins.</p></li>
+          <li class="ph" data-a style="--d:390"><span class="ph-n">04</span><h3>Mantenimiento y licenciamiento</h3><p>Operación, soporte, monitoreo y licencia de plataforma.</p></li>
+          <li class="ph" data-a style="--d:470"><span class="ph-n">05</span><h3>Expansión</h3><p>Nuevos procesos y áreas sobre el contexto ya construido.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ QUIÉNES SOMOS ============ -->
+    <section id="nosotros">
+      <div class="aurora" aria-hidden="true"><i style="width:760px;height:560px;left:-220px;top:-220px;background:radial-gradient(circle,rgba(220,212,255,.7),transparent 70%)"></i></div>
+      <div class="wrap">
+        <div class="about">
+          <div class="sec-head">
+            <div class="eyebrow" data-a>Quiénes somos</div>
+            <h2 class="h-m" data-a style="--d:100">Adray: implementación de IA para la operación.</h2>
+          </div>
+          <p class="lead" data-a style="--d:200">Startup mexicana, fundada en 2026. Socio tecnológico de los principales proveedores de IA y servicios de nube.</p>
+        </div>
+        <span class="label" style="display:block;margin-top:56px" data-a>Ecosistema tecnológico</span>
+        <div class="partners" style="margin-top:16px">
+          <div class="glass partner" data-a style="--d:100"><div class="logo-box"><img src="/ventas/keystone/assets/google-cloud-partner.png" alt="Google Cloud Partner" width="73" height="80"></div><span class="label">Socio tecnológico</span></div>
+          <div class="glass partner" data-a style="--d:160"><div class="logo-box"><img src="/ventas/keystone/assets/microsoft-ai-cloud-partner.png" alt="Microsoft AI Cloud Partner" width="177" height="36"></div><span class="label">Socio tecnológico</span></div>
+          <div class="glass partner" data-a style="--d:220"><div class="logo-box"><img src="/ventas/keystone/assets/openai.png" alt="OpenAI" width="130" height="36"></div><span class="label">Socio tecnológico</span></div>
+          <div class="glass partner" data-a style="--d:280"><div class="logo-box"><img src="/ventas/keystone/assets/nvidia-inception.png" alt="NVIDIA Inception Program" width="143" height="50"></div><span class="label">Programa</span></div>
+          <div class="glass partner" data-a style="--d:340"><div class="logo-box"><img src="/ventas/keystone/assets/anthropic.png" alt="Anthropic" width="160" height="18" style="opacity:.9"></div><span class="soon">En proceso</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="dark cta" id="contacto">
+      <div class="aurora" aria-hidden="true"><i class="a1"></i></div>
+      <div class="grid-dots" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="cta-box">
+          <div class="eyebrow" data-a>Siguiente paso</div>
+          <h2 class="h-l" data-a style="--d:100">Empecemos con un discovery.</h2>
+          <p class="lead" data-a style="--d:200">Medimos el uso actual de IA en tu empresa y levantamos los procesos de mayor valor. De ahí sale un portafolio priorizado, con alcance, costo y retorno.</p>
+          <div class="cta-row" data-a style="--d:300">
+            <a class="btn btn-primary" href="/agendar">Agenda una conversación <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-ghost" href="mailto:victor@adray.ai?subject=Adray%20Keystone"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Escríbenos</a>
+          </div>
+          <div class="person" data-a style="--d:400"><span class="av" aria-hidden="true">VH</span><div><b>Victor Huerta · CEO</b><a href="mailto:victor@adray.ai">victor@adray.ai</a></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <a href="/" aria-label="Adray"><span class="lg logo" aria-hidden="true"></span></a>
+      <nav aria-label="Legal">
+        <a href="/privacy-policy">Privacidad</a>
+        <a href="/terms-of-service">Términos</a>
+        <a href="mailto:victor@adray.ai">Contacto</a>
+      </nav>
+      <small>© 2026 Adray, Inc.</small>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* Reveal on scroll */
+      var items = document.querySelectorAll("[data-a]");
+      if (!("IntersectionObserver" in window) || reduce) {
+        items.forEach(function (el) { el.classList.add("in"); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+          });
+        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+        items.forEach(function (el) { io.observe(el); });
+      }
+
+      /* Count-up on figures */
+      function countUp(el) {
+        var to = parseFloat(el.getAttribute("data-count"));
+        var t0 = null, dur = 1200;
+        function step(t) {
+          if (!t0) t0 = t;
+          var p = Math.min(1, (t - t0) / dur);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        el.textContent = "0";
+        requestAnimationFrame(step);
+      }
+      if (!reduce && "IntersectionObserver" in window) {
+        var co = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { countUp(e.target); co.unobserve(e.target); }
+          });
+        }, { threshold: 0.6 });
+        document.querySelectorAll("[data-count]").forEach(function (el) { co.observe(el); });
+      }
+
+      /* 100-dot chart: 6 advanced, 12 intermediate, 30 basic, 52 without AI */
+      var dots = document.getElementById("dots");
+      if (dots) {
+        var ns = "http://www.w3.org/2000/svg", html = "";
+        for (var i = 0; i < 100; i++) {
+          var r = Math.floor(i / 10), c = i % 10;
+          var cx = 23 + c * 46, cy = 23 + r * 46;
+          var fill, extra = "";
+          if (i < 6) fill = "#5636E8";
+          else if (i < 18) fill = "#0E0F15";
+          else if (i < 48) fill = "#B9BBC8";
+          else { fill = "none"; extra = ' stroke="rgba(14,15,21,.22)" stroke-width="1.5"'; }
+          html += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (fill === "none" ? 14.5 : 15.5) + '" fill="' + fill + '"' + extra + "/>";
+        }
+        dots.innerHTML = html;
+      }
+
+      /* Keystone layers */
+      var layers = {
+        sec: ["Seguridad y gobierno", "Permisos, políticas y auditoría que envuelven todas las capas. Definen quién y qué puede leer, decidir o ejecutar, con registro de cada acción."],
+        obs: ["Observabilidad", "Evalúa y monitorea cada agente en desarrollo y en producción. Rendimiento, costos, métricas y alertas en tableros, con trazabilidad completa."],
+        flow: ["Flujos de trabajo", "Ejecuta procesos de negocio de principio a fin. Coordina agentes, sistemas y personas sin perder el contexto, el estado ni los permisos de cada tarea."],
+        ctx: ["Hub de contexto", "Una capa de conocimiento que indexa los documentos y datos de tu empresa para que agentes y aplicaciones los consulten directamente."],
+        mod: ["Modelos", "Modelos de frontera, abiertos u on-prem detrás de una sola interfaz. Cada tarea se dirige al modelo que mejor cumple sus requisitos."],
+        int: ["Hub de integraciones", "Un solo lugar para administrar todas las conexiones de la organización, desde proveedores soportados hasta cualquier servidor MCP, con gobierno central y no producto por producto."]
+      };
+      var ksT = document.getElementById("ksT"), ksD = document.getElementById("ksD");
+      var ksBtns = document.querySelectorAll(".ks-btn");
+      ksBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          var l = layers[b.getAttribute("data-k")];
+          if (!l) return;
+          ksBtns.forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+          ksT.textContent = l[0];
+          ksD.textContent = l[1];
+        });
+      });
+
+      /* Hero: agent run, step by step */
+      var steps = document.querySelectorAll("#runSteps .kr");
+      var logs = document.querySelectorAll("#runLog div");
+      if (!reduce && steps.length) {
+        var k = 0, timer = null;
+        function paint() {
+          steps.forEach(function (s, i) { s.classList.toggle("done", i < k); });
+          logs.forEach(function (l, i) { l.classList.toggle("wait", i >= k); });
+          k = k >= steps.length ? 0 : k + 1;
+        }
+        var run = document.querySelector(".run");
+        var ro = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting && !timer) { paint(); timer = setInterval(paint, 1500); }
+            else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
+          });
+        });
+        ro.observe(run);
+      }
+    })();
+  </script>
+</body>
+</html>
